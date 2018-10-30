@@ -43,7 +43,7 @@ public class DemoApplication {
 }
 EOF
 
-echo \n >> .gitignore
+echo  >> .gitignore
 echo "pipeline/credentials.yml" >> .gitignore
 
 git config --global user.email "ubsbot@pivotal.io"
