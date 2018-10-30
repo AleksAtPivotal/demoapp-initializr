@@ -19,3 +19,6 @@ jobs:
     trigger: true
   - task: create-github-repo
     file: demoapp-initializr/pipeline/tasks/create-github-repo.yml
+    params:
+      GITHUBTOKEN: {{GITHUBTOKEN}}
+      REPONAME: {{REPONAME}} 

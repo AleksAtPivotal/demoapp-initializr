@@ -9,8 +9,9 @@ image_resource:
 inputs:
 - name: demoapp-initializr
 
-#params:
+params:
+  REPONAME:
+  GITHUBTOKEN:  
   
 run:
   path: demoapp-initializr/pipeline/tasks/create-github-repo
-  

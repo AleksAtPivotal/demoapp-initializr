@@ -4,6 +4,12 @@ set -eu
 
 root=$PWD
 
-terraform init 
 
-exit 1
+tempfolder=$(mktemp)
+cp demoapp-initializr/pipeline/terraform/create_github_repo.tf $tempfolder/terraform.tfvars
+pushd $tempfolder
+
+terraform init 
+terraform apply \
+    --var reponame=$REPONAME \
+    --var github_token=$GITHUBTOKEN 
