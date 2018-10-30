@@ -5,8 +5,8 @@ set -eu
 root=$PWD
 
 
-tempfolder=$(mktemp)
-cp demoapp-initializr/pipeline/terraform/create_github_repo.tf $tempfolder/terraform.tfvars
+tempfolder=$(mktemp -d)
+cp demoapp-initializr/pipeline/terraform/create_github_repo.tf $tempfolder/terraform.tf
 pushd $tempfolder
 
 terraform init 

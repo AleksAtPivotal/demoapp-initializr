@@ -9,3 +9,12 @@ resource "github_repository" "githubrepo" {
   private = false
   auto_init = true
 }
+
+variable "github_token" {
+  type = "string"
+}
+
+variable "reponame" {
+  type = "string"
+}
+
