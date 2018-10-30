@@ -2,6 +2,7 @@ groups:
 - name: main
   jobs:
   - unit-tests
+  - security-tests
   - deploy-app
   - load-tests
   - promote-new-version
@@ -11,7 +12,7 @@ resources:
   type: git
   source:
     branch: master
-    uri: https://github.com/pivotalservices/application-pipeline.git
+    uri: https://github.com/alekssaul/demoapp-springboot.git
 - name: PAS
   type: cf
   source:
@@ -30,7 +31,18 @@ jobs:
   - get: application-pipeline
     trigger: true
   - task: run-unit-tests
-    file: application-pipeline/pipelines/appdev/blue-green-app-deployment/ci/tasks/unit-tests.yml
+    file: application-pipeline/pipeline/tasks/unit-tests.yml
+
+- name: security-tests
+  serial: true
+  public: true
+  plan:
+  - get: application-pipeline
+    trigger: true
+    passed:
+      - unit-tests
+  - task: run-security-tests
+    file: application-pipeline/pipeline/tasks/run-security-tests.yml
 
 - name: deploy-app
   serial: true
@@ -39,9 +51,9 @@ jobs:
   - get: application-pipeline
     trigger: true
     passed:
-      - unit-tests
+      - security-tests
   - task: get-current-app-color
-    file: application-pipeline/pipelines/appdev/blue-green-app-deployment/ci/tasks/current-app-get-info.yml
+    file: application-pipeline/pipeline/tasks/current-app-get-info.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_API: {{pws-api}}
@@ -50,13 +62,15 @@ jobs:
       PWS_PWD: {{deploy-password}}
       PWS_SPACE: {{pws-space}}
   - task: prepare-app-manifest
-    file: application-pipeline/pipelines/appdev/blue-green-app-deployment/ci/tasks/app-manifest-prep.yml
+    file: application-pipeline/pipeline/tasks/app-manifest-prep.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
+  - task: build-app
+    file: application-pipeline/pipeline/tasks/build-app.yml
   - put: PAS
     params:
       manifest: app-manifest-output/manifest.yml
-      path: application-pipeline/pipelines/appdev/blue-green-app-deployment/bgd-app
+      path: application-pipeline/
 
 - name: load-tests
   serial: true
@@ -67,7 +81,7 @@ jobs:
     passed:
       - deploy-app
   - task: get-current-app-color
-    file: application-pipeline/pipelines/appdev/blue-green-app-deployment/ci/tasks/current-app-get-info.yml
+    file: application-pipeline/pipeline/tasks/current-app-get-info.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_API: {{pws-api}}
@@ -76,7 +90,7 @@ jobs:
       PWS_PWD: {{deploy-password}}
       PWS_SPACE: {{pws-space}}
   - task: run-load-tests
-    file: application-pipeline/pipelines/appdev/blue-green-app-deployment/ci/tasks/load-tests.yml
+    file: application-pipeline/pipeline/tasks/load-tests.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_APP_DOMAIN: {{pws-app-domain}}
@@ -90,7 +104,7 @@ jobs:
     passed:
       - load-tests
   - task: get-current-app-color
-    file: application-pipeline/pipelines/appdev/blue-green-app-deployment/ci/tasks/current-app-get-info.yml
+    file: application-pipeline/pipeline/tasks/current-app-get-info.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_API: {{pws-api}}
@@ -99,7 +113,7 @@ jobs:
       PWS_PWD: {{deploy-password}}
       PWS_SPACE: {{pws-space}}
   - task: switch-app-routes
-    file: application-pipeline/pipelines/appdev/blue-green-app-deployment/ci/tasks/update-routes.yml
+    file: application-pipeline/pipeline/tasks/update-routes.yml
     params:
       PWS_APP_SUFFIX: {{pws-app-suffix}}
       PWS_APP_DOMAIN: {{pws-app-domain}}

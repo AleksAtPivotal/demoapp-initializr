@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -xe
+
+cd application-pipeline/
+env
+unset MAVEN_CONFIG
+env
+./mvnw clean install
+
+output=$(cat ../app-manifest-info/manifest.yml | grep path | awk -F: '{ print $2 }' | tr -d ' ' )
+echo $output
+mkdir ../app-manifest-output/target
+cp ../app-manifest-info/manifest.yml ../app-manifest-output/
+cp -rdf ./$output ../app-manifest-output/$output
