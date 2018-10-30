@@ -57,5 +57,12 @@ jobs:
       GITHUBORGNAME: {{GITHUBORGNAME}}
       GITHUBSSHKEY: {{GITHUBSSHKEY}}
       SPRINGINITURL: {{SPRINGINITURL}}
+  - task: create-mockcode
+    file: demoapp-initializr/pipeline/tasks/create-mockcode.yml
+    params:
+      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
+      REPONAME: {{REPONAME}} 
+      GITHUBORGNAME: {{GITHUBORGNAME}}
+      GITHUBSSHKEY: {{GITHUBSSHKEY}}
 
     
