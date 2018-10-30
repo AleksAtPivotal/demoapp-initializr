@@ -49,7 +49,7 @@ func main() {
 	log.Printf("Creating a repository %v\n", newrepo)
 	_, response, err := GithubClient.Repositories.Create(ctx, "", &newrepo)
 	if err != nil {
-		//return err
+		log.Panicf("Error Occured %v", err)
 	}
 	fmt.Printf("Result: %v\n", response.StatusCode)
 
