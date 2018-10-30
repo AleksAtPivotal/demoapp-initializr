@@ -3,6 +3,7 @@ groups:
   jobs:
   - create-github-repo
   - push-templates
+  - spring-initialize
 
 resources:
 - name: demoapp-initializr
@@ -17,7 +18,7 @@ jobs:
   public: true
   plan:
   - get: demoapp-initializr
-    trigger: false
+    trigger: true
   - task: create-github-repo
     file: demoapp-initializr/pipeline/tasks/create-github-repo.yml
     params:
@@ -39,3 +40,22 @@ jobs:
       REPONAME: {{REPONAME}} 
       GITHUBORGNAME: {{GITHUBORGNAME}}
       GITHUBSSHKEY: {{GITHUBSSHKEY}}
+
+- name: spring-initialize
+  serial: true
+  public: true
+  plan:
+  - get: demoapp-initializr
+    trigger: true
+    passed:
+      - push-templates
+  - task: spring-initialize
+    file: demoapp-initializr/pipeline/tasks/spring-initialize.yml
+    params:
+      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
+      REPONAME: {{REPONAME}} 
+      GITHUBORGNAME: {{GITHUBORGNAME}}
+      GITHUBSSHKEY: {{GITHUBSSHKEY}}
+      SPRINGINITURL: {{SPRINGINITURL}}
+
+    
