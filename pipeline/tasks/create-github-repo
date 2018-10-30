@@ -1,15 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 set -eu
 
 root=$PWD
 
-
-tempfolder=$(mktemp -d)
-cp demoapp-initializr/pipeline/terraform/create_github_repo.tf $tempfolder/terraform.tf
-pushd $tempfolder
-
-terraform init 
-terraform apply \
-    --var reponame=$REPONAME \
-    --var github_token=$GITHUBTOKEN 
+/app/github_create_repository -name=$REPONAME

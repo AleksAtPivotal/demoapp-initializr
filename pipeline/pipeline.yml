@@ -20,5 +20,5 @@ jobs:
   - task: create-github-repo
     file: demoapp-initializr/pipeline/tasks/create-github-repo.yml
     params:
-      GITHUBTOKEN: {{GITHUBTOKEN}}
+      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
       REPONAME: {{REPONAME}} 
