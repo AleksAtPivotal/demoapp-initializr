@@ -1,0 +1,21 @@
+groups:
+- name: main
+  jobs:
+  - create-github-repo
+
+resources:
+- name: demoapp-initializr
+  type: git
+  source:
+    branch: master
+    uri: https://github.com/alekssaul/demoapp-initializr
+
+jobs:
+- name: create-github-repo
+  serial: true
+  public: true
+  plan:
+  - get: demoapp-initializr
+    trigger: true
+  - task: create-github-repo
+    file: demoapp-initializr/pipelines/tasks/create-github-repo.yml

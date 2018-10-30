@@ -13,3 +13,12 @@
 
 # Make builds on bin
 bin/
+
+# Terraform 
+.terraform/
+terraform.tfvars
+terraform.tfstate*
+.terraform.tfstate*
+
+# Concourse
+credentials.yml
