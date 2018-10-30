@@ -9,4 +9,5 @@ FROM alpine:latest
 RUN mkdir /app
 WORKDIR /app
 COPY --from=builder /app .
+RUN apk update ; apk add --no-cache ca-certificates && update-ca-certificates
 CMD /bin/sh
