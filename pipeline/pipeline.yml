@@ -34,3 +34,8 @@ jobs:
       - create-github-repo
   - task: commit-templates
     file: demoapp-initializr/pipeline/tasks/push-templates.yml
+    params:
+      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
+      REPONAME: {{REPONAME}} 
+      GITHUBORGNAME: {{GITHUBORGNAME}}
+      GITHUBSSHKEY: {{GITHUBSSHKEY}}

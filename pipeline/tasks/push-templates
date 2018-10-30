@@ -6,3 +6,12 @@ root=$PWD
 
 ## git checkout repo
 ls -ltrh
+mkdir $home/.ssh
+echo $GITHUBSSHKEY > $home/.ssh/id_rsa
+echo Clonning repo
+git clone git@github.com:$GITHUBORGNAME/$REPONAME.git
+cd $REPONAME
+cp -rdf ../demoapp-initializr/templates ./
+git add -A 
+git commit -a -m "Merge Templates by corp policy"
+git push 
