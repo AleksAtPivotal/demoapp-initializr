@@ -7,7 +7,7 @@ resources:
 - name: demoapp-initializr
   type: git
   source:
-    branch: master
+    branch: {{demo-initializr-branch}}
     uri: https://github.com/alekssaul/demoapp-initializr
 
 jobs:
