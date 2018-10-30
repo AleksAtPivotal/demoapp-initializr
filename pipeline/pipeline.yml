@@ -18,4 +18,4 @@ jobs:
   - get: demoapp-initializr
     trigger: true
   - task: create-github-repo
-    file: demoapp-initializr/pipelines/tasks/create-github-repo.yml
+    file: demoapp-initializr/pipeline/tasks/create-github-repo.yml
