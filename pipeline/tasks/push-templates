@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -eu
+
+root=$PWD
+
+## git checkout repo
+ls -ltrh

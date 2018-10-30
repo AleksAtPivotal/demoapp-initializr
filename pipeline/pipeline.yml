@@ -2,6 +2,7 @@ groups:
 - name: main
   jobs:
   - create-github-repo
+  - push-templates
 
 resources:
 - name: demoapp-initializr
@@ -16,9 +17,20 @@ jobs:
   public: true
   plan:
   - get: demoapp-initializr
-    trigger: true
+    trigger: false
   - task: create-github-repo
     file: demoapp-initializr/pipeline/tasks/create-github-repo.yml
     params:
       DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
       REPONAME: {{REPONAME}} 
+
+- name: push-templates
+  serial: true
+  public: true
+  plan:
+  - get: demoapp-initializr
+    trigger: true
+    passed:
+      - create-github-repo
+  - task: commit-templates
+    file: demoapp-initializr/pipeline/tasks/push-templates.yml
