@@ -12,7 +12,7 @@ resources:
   type: git
   source:
     branch: master
-    uri: https://github.com/alekssaul/demoapp-springboot.git
+    uri: {{git-url}}
 - name: PAS
   type: cf
   source:

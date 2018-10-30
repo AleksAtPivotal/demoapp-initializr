@@ -4,6 +4,7 @@ groups:
   - create-github-repo
   - push-templates
   - spring-initialize
+  - create-app-pipeline
 
 resources:
 - name: demoapp-initializr
@@ -65,4 +66,30 @@ jobs:
       GITHUBORGNAME: {{GITHUBORGNAME}}
       GITHUBSSHKEY: {{GITHUBSSHKEY}}
 
-    
+- name: create-app-pipeline
+  serial: true
+  public: true
+  plan:
+  - get: demoapp-initializr
+    trigger: true
+    passed:
+      - spring-initialize
+  - task: create-app-pipeline
+    file: demoapp-initializr/pipeline/tasks/create-app-pipeline.yml
+    params:
+      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
+      REPONAME: {{REPONAME}} 
+      GITHUBORGNAME: {{GITHUBORGNAME}}
+      GITHUBSSHKEY: {{GITHUBSSHKEY}}
+      SPRINGINITURL: {{SPRINGINITURL}}
+      CONCOURSEURL: {{CONCOURSEURL}}
+      GIT_URL: {{GIT_URL}}
+      DEPLOY_USERNAME: {{DEPLOY_USERNAME}}
+      DEPLOY_PASSWORD: {{DEPLOY_PASSWORD}}
+      PAS_ORGANIZATION: {{PAS_ORGANIZATION}}
+      PAS_SPACE: {{PAS_SPACE}}
+      PAS_API: {{PAS_API}}
+      PAS_APP_SUFFIX: {{REPONAME}}
+      PAS_DOMAIN: {{PAS_DOMAIN}}
+      CONCOURSE_USERNAME: {{CONCOURSE_USERNAME}}
+      CONCOURSE_PASSWORD: {{CONCOURSE_PASSWORD}}
