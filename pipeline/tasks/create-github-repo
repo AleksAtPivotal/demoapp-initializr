@@ -4,5 +4,5 @@ set -eu
 
 root=$PWD
 
-export DEMOAPP_INITIALIZR_GITHUBTOKEN=$DEMOAPP_INITIALIZR_GITHUBTOKEN
+env
 /app/github_create_repository -name=$REPONAME
