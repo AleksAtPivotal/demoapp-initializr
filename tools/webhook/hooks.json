@@ -1,0 +1,35 @@
+[
+  {
+    "id": "concourse",
+    "execute-command": "/app/concourse_sp.sh",
+    "command-working-directory": "/app",
+    "response-message": "I got the payload!",
+    "response-headers":
+    [
+      {
+        "name": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ],
+    "pass-arguments-to-command":
+    [
+      {
+        "source": "payload",
+        "name": "repo"
+      },
+    ],
+    "trigger-rule":
+    {
+      "match":
+      {
+        "type": "value",
+        "value": "42",
+        "parameter":
+        {
+          "source": "url",
+          "name": "token"
+        }
+      }
+    }
+  }
+]
