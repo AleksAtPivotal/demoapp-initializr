@@ -28,7 +28,7 @@ pws-space: $PAS_SPACE
 pws-api: $PAS_API
 pws-app-suffix: $REPONAME
 pws-app-domain: $PAS_DOMAIN
-git-url: $GIT_URL
+git-url: https://github.com/$GITHUBORGNAME/$REPONAME.git
 EOF
 
 fly -t concourse set-pipeline -p $REPONAME-blue-green -c pipeline/pipeline.yml -l pipeline/credentials.yml -n
