@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
+
+	"github.com/concourse/go-concourse/concourse"
 )
 
 const (
@@ -19,5 +21,6 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Recieved a request %v", r)
 
 	w.WriteHeader(http.StatusOK)
+	team := concourse.Team{}
 
 }
