@@ -17,7 +17,6 @@ cd $REPONAME
 cp -rdf ../demoapp-initializr/templates/* ./
 git config --global user.email "ubsbot@pivotal.io"
 git config --global user.name "UBS BOT"
-sed -i "s@APPNAME@$REPONAME@g" ./manifest.yml 
 git add -A 
 git commit -a -m "Merge Templates by corp policy"
 git push 
