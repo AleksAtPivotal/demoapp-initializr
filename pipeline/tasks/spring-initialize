@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -eu
+
+root=$PWD
+
+ls -ltrh
+mkdir $HOME/.ssh
+echo "$GITHUBSSHKEY" > $HOME/.ssh/id_rsa
+echo Clonning repo
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+chmod 700 ~/.ssh/known_hosts
+chmod 700 ~/.ssh/id_rsa
+git clone git@github.com:$GITHUBORGNAME/$REPONAME.git
+cd $REPONAME
+
+curl https://$SPRINGINITURL/starter.tgz  \
+  -d dependencies=web,actuator \
+  -d language=java \
+  -d bootVersion=2.1.0.RELEASE \
+  -d type=maven-project \
+   -o spring.tgz
+
+tar -zxvf spring.tgz
+rm spring.tgz
+
+git config --global user.email "ubsbot@pivotal.io"
+git config --global user.name "UBS BOT"
+git add -A 
+git commit -a -m "Added Spring Initializr content"
+git push

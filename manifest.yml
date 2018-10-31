@@ -1,0 +1,7 @@
+---
+applications:
+- name: demoapp-initializr
+  memory: 512M
+  instances: 1
+  health-check-type: http
+  health-check-http-endpoint: /healthz
