@@ -1,5 +1,5 @@
 hash: 01a8315d73546358cd6a19d7082dd5caab811b8228e5b93868fab9dd15fd1475
-updated: 2018-10-29T20:15:46.531338-04:00
+updated: 2018-10-30T21:30:36.089297-04:00
 imports:
 - name: github.com/golang/protobuf
   version: 1643683e1b54a9e88ad26d98f81400c8c9d9f4f9
@@ -23,7 +23,7 @@ imports:
   subpackages:
   - internal
 - name: google.golang.org/appengine
-  version: 80663353cf07ea09bdc45f5cddbb05f93bf16433
+  version: 4a4468ece617fc8205e99368fa2200e9d1fad421
   subpackages:
   - internal
   - internal/base
