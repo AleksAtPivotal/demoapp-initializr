@@ -4,4 +4,4 @@ set -eu
 
 root=$PWD
 
-exit 1
+/app/github_create_repository -name=$REPONAME

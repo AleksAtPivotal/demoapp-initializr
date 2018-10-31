@@ -8,7 +8,7 @@ all: vendor test build
 
 .PHONY: build
 build:
-	@go build -o bin/demoapp-pcf-healthcheck -v ${APPURL}
+	@go build -o bin/demoapp-initializr -v ${APPURL}
 
 .PHONY: vendor
 vendor:
@@ -17,3 +17,7 @@ vendor:
 .PHONY: test
 test:
 	@go test ./ 
+
+.PHONY: tools
+tools:
+	@go build -o bin/github_create_repository -v ./cmd/github_create_repository
