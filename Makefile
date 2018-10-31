@@ -18,6 +18,6 @@ vendor:
 test:
 	@go test ./ 
 
-.PHONY: cmd
-cmd:
+.PHONY: tools
+tools:
 	@go build -o bin/github_create_repository -v ./cmd/github_create_repository
