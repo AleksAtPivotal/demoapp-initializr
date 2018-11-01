@@ -17,19 +17,6 @@
         "source": "payload",
         "name": "repo"
       },
-    ],
-    "trigger-rule":
-    {
-      "match":
-      {
-        "type": "value",
-        "value": "42",
-        "parameter":
-        {
-          "source": "url",
-          "name": "token"
-        }
-      }
-    }
+    ]
   }
 ]
