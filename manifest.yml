@@ -1,7 +1,7 @@
 ---
 applications:
-- name: demoapp-initializr
+- name: bootstrap-backend
   memory: 512M
   instances: 1
-  health-check-type: http
-  health-check-http-endpoint: /healthz
+  docker:
+    image: alekssaul/demoapp-initializer-webhook:v0.1.4
