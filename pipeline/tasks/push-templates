@@ -14,7 +14,7 @@ chmod 700 ~/.ssh/known_hosts
 chmod 700 ~/.ssh/id_rsa
 git clone git@github.com:$GITHUB_ORGNAME/$REPONAME.git
 cd $REPONAME
-cp -rdf ../demoapp-initializr/templates/* ./
+cp -rdf ../si2ci/templates/* ./
 git config --global user.email "ubsbot@pivotal.io"
 git config --global user.name "UBS BOT"
 git add -A 

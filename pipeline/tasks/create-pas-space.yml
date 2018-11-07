@@ -8,10 +8,10 @@ image_resource:
     tag: "latest"
 
 inputs:
-- name: demoapp-initializr
+- name: si2ci
 
 outputs:
 - name: current-app-info
 
 run:
-  path: demoapp-initializr/pipeline/tasks/create-pas-space
+  path: si2ci/pipeline/tasks/create-pas-space

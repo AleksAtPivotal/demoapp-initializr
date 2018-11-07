@@ -8,7 +8,7 @@ image_resource:
     tag: "latest"
     
 inputs:
-- name: demoapp-initializr
+- name: si2ci
 
 run:
-  path: demoapp-initializr/pipeline/tasks/create-app-pipeline
+  path: si2ci/pipeline/tasks/create-app-pipeline
