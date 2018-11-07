@@ -48,7 +48,7 @@ func (c *Concourse) CreatePipeline(credentials string, pipeline string, name str
 		return err
 	}
 
-	pname := commands.PipelineFlag(name + "_" + randStringBytes(8))
+	pname := commands.PipelineFlag(name + "_" + RandomString(10))
 
 	fly.SetPipeline = commands.SetPipelineCommand{
 		SkipInteractive:  true,
@@ -98,13 +98,10 @@ func envToFile(s string) (file atc.PathFlag, err error) {
 	return atc.PathFlag(fname), nil
 }
 
-// Generate random string
-const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-func randStringBytes(n int) string {
-	b := make([]byte, n)
-	for i := range b {
-		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+func RandomString(len int) string {
+	bytes := make([]byte, len)
+	for i := 0; i < len; i++ {
+		bytes[i] = byte(65 + rand.Intn(25)) //A=65 and Z = 65+25
 	}
-	return string(b)
+	return string(bytes)
 }

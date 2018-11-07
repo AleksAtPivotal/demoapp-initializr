@@ -59,6 +59,8 @@ jobs:
       GITHUB_ORGNAME: {{GITHUB_ORGNAME}}
       GITHUB_SSHKEY: {{GITHUB_SSHKEY}}
       SPRING_INITURL: {{SPRING_INITURL}}
+      SI2CI_BOOTVERSION: {{SI2CI_BOOTVERSION}}
+      
   - task: create-mockcode
     file: si2ci/pipeline/tasks/create-mockcode.yml
     params:

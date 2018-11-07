@@ -29,7 +29,7 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 
 	creds := os.Getenv("CREDENTIALS_YML")
 	pipeline := os.Getenv("PIPELINE_YML")
-
+	log.Printf("Creds: %s", creds)
 	// add Spring Initializer content into credential file based on request parameters
 	creds = addToCreds(creds, "SI2CI_NAME", r.URL.Query().Get("name"))
 	creds = addToCreds(creds, "SI2CI_LANGUAGE", r.URL.Query().Get("language"))

@@ -19,7 +19,7 @@ curl https://$SPRING_INITURL/starter.tgz  \
   -d language=java \
   -d bootVersion=$SI2CI_BOOTVERSION \
   -d type=maven-project \
-   -o spring.tgz
+  -o spring.tgz
 
 tar -zxvf spring.tgz
 rm spring.tgz
