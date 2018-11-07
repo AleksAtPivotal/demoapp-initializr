@@ -26,6 +26,7 @@ jobs:
     params:
       GITHUB_TOKEN: {{GITHUB_TOKEN}}
       REPONAME: {{SI2CI_NAME}} 
+      DESCRIPTION: {{SI2CI_DESCRIPTION}}
 
 - name: push-templates
   serial: true
