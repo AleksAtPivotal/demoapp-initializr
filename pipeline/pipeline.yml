@@ -8,10 +8,10 @@ groups:
   - prepare-PCF
 
 resources:
-- name: demoapp-initializr
+- name: si2ci
   type: git
   source:
-    branch: {{demo-initializr-branch}}
+    branch: {{SI2CI_BRANCH}}
     uri: https://github.com/alekssaul/demoapp-initializr
 
 jobs:
@@ -19,77 +19,75 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: demoapp-initializr
+  - get: si2ci
     trigger: true
   - task: create-github-repo
-    file: demoapp-initializr/pipeline/tasks/create-github-repo.yml
+    file: si2ci/pipeline/tasks/create-github-repo.yml
     params:
-      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
-      REPONAME: {{REPONAME}} 
+      GITHUB_TOKEN: {{GITHUB_TOKEN}}
+      REPONAME: {{SI2CI_NAME}} 
 
 - name: push-templates
   serial: true
   public: true
   plan:
-  - get: demoapp-initializr
+  - get: si2ci
     trigger: true
     passed:
       - create-github-repo
   - task: commit-templates
-    file: demoapp-initializr/pipeline/tasks/push-templates.yml
+    file: si2ci/pipeline/tasks/push-templates.yml
     params:
-      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
-      REPONAME: {{REPONAME}} 
-      GITHUBORGNAME: {{GITHUBORGNAME}}
-      GITHUBSSHKEY: {{GITHUBSSHKEY}}
+      GITHUB_TOKEN: {{GITHUB_TOKEN}}
+      REPONAME: {{SI2CI_NAME}} 
+      GITHUB_ORGNAME: {{GITHUB_ORGNAME}}
+      GITHUB_SSHKEY: {{GITHUB_SSHKEY}}
 
 - name: spring-initialize
   serial: true
   public: true
   plan:
-  - get: demoapp-initializr
+  - get: si2ci
     trigger: true
     passed:
       - push-templates
   - task: spring-initialize
-    file: demoapp-initializr/pipeline/tasks/spring-initialize.yml
+    file: si2ci/pipeline/tasks/spring-initialize.yml
     params:
-      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
-      REPONAME: {{REPONAME}} 
-      GITHUBORGNAME: {{GITHUBORGNAME}}
-      GITHUBSSHKEY: {{GITHUBSSHKEY}}
-      SPRINGINITURL: {{SPRINGINITURL}}
+      GITHUB_TOKEN: {{GITHUB_TOKEN}}
+      REPONAME: {{SI2CI_NAME}}
+      GITHUB_ORGNAME: {{GITHUB_ORGNAME}}
+      GITHUB_SSHKEY: {{GITHUB_SSHKEY}}
+      SPRING_INITURL: {{SPRING_INITURL}}
   - task: create-mockcode
-    file: demoapp-initializr/pipeline/tasks/create-mockcode.yml
+    file: si2ci/pipeline/tasks/create-mockcode.yml
     params:
-      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
-      REPONAME: {{REPONAME}} 
-      GITHUBORGNAME: {{GITHUBORGNAME}}
-      GITHUBSSHKEY: {{GITHUBSSHKEY}}
+      GITHUB_TOKEN: {{GITHUB_TOKEN}}
+      REPONAME: {{SI2CI_NAME}}
+      GITHUB_ORGNAME: {{GITHUB_ORGNAME}}
+      GITHUB_SSHKEY: {{GITHUB_SSHKEY}}
 - name: prepare-PCF
   serial: true
   public: true
   plan:
-  - get: demoapp-initializr
+  - get: si2ci
     trigger: true
     passed:
       - spring-initialize
   - task: create-pas-space
-    file: demoapp-initializr/pipeline/tasks/create-pas-space.yml
+    file: si2ci/pipeline/tasks/create-pas-space.yml
     params:
-      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
-      REPONAME: {{REPONAME}} 
-      GITHUBORGNAME: {{GITHUBORGNAME}}
-      GITHUBSSHKEY: {{GITHUBSSHKEY}}
-      SPRINGINITURL: {{SPRINGINITURL}}
-      CONCOURSEURL: {{CONCOURSEURL}}
-      GIT_URL: {{GIT_URL}}
+      GITHUB_TOKEN: {{GITHUB_TOKEN}}
+      REPONAME: {{SI2CI_NAME}}
+      GITHUB_ORGNAME: {{GITHUB_ORGNAME}}
+      GITHUB_SSHKEY: {{GITHUB_SSHKEY}}
+      SPRING_INITURL: {{SPRING_INITURL}}
+      CONCOURSE_TARGET: {{CONCOURSE_TARGET}}
       DEPLOY_USERNAME: {{DEPLOY_USERNAME}}
       DEPLOY_PASSWORD: {{DEPLOY_PASSWORD}}
       PAS_ORGANIZATION: {{PAS_ORGANIZATION}}
-      PAS_SPACE: {{PAS_SPACE}}
+      PAS_SPACE: {{SI2CI_NAME}}
       PAS_API: {{PAS_API}}
-      PAS_APP_SUFFIX: {{REPONAME}}
       PAS_DOMAIN: {{PAS_DOMAIN}}
       CONCOURSE_USERNAME: {{CONCOURSE_USERNAME}}
       CONCOURSE_PASSWORD: {{CONCOURSE_PASSWORD}}
@@ -99,26 +97,25 @@ jobs:
   serial: true
   public: true
   plan:
-  - get: demoapp-initializr
+  - get: si2ci
     trigger: true
     passed:
       - prepare-PCF
   - task: create-app-pipeline
-    file: demoapp-initializr/pipeline/tasks/create-app-pipeline.yml
+    file: si2ci/pipeline/tasks/create-app-pipeline.yml
     params:
-      DEMOAPP_INITIALIZR_GITHUBTOKEN: {{GITHUBTOKEN}}
-      REPONAME: {{REPONAME}} 
-      GITHUBORGNAME: {{GITHUBORGNAME}}
-      GITHUBSSHKEY: {{GITHUBSSHKEY}}
-      SPRINGINITURL: {{SPRINGINITURL}}
-      CONCOURSEURL: {{CONCOURSEURL}}
+      GITHUB_TOKEN: {{GITHUB_TOKEN}}
+      REPONAME: {{SI2CI_NAME}}
+      GITHUB_ORGNAME: {{GITHUB_ORGNAME}}
+      GITHUB_SSHKEY: {{GITHUB_SSHKEY}}
+      SPRING_INITURL: {{SPRING_INITURL}}
+      CONCOURSE_TARGET: {{CONCOURSE_TARGET}}
       GIT_URL: {{GIT_URL}}
       DEPLOY_USERNAME: {{DEPLOY_USERNAME}}
       DEPLOY_PASSWORD: {{DEPLOY_PASSWORD}}
       PAS_ORGANIZATION: {{PAS_ORGANIZATION}}
-      PAS_SPACE: {{PAS_SPACE}}
+      PAS_SPACE: {{SI2CI_NAME}}
       PAS_API: {{PAS_API}}
-      PAS_APP_SUFFIX: {{REPONAME}}
       PAS_DOMAIN: {{PAS_DOMAIN}}
       CONCOURSE_USERNAME: {{CONCOURSE_USERNAME}}
       CONCOURSE_PASSWORD: {{CONCOURSE_PASSWORD}}

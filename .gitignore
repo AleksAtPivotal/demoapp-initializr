@@ -22,3 +22,6 @@ terraform.tfstate*
 
 # Concourse
 credentials.yml
+
+# Visual Studio code
+.vscode/

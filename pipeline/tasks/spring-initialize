@@ -6,18 +6,18 @@ root=$PWD
 
 ls -ltrh
 mkdir $HOME/.ssh
-echo "$GITHUBSSHKEY" > $HOME/.ssh/id_rsa
+echo "$GITHUB_SSHKEY" > $HOME/.ssh/id_rsa
 echo Clonning repo
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 chmod 700 ~/.ssh/known_hosts
 chmod 700 ~/.ssh/id_rsa
-git clone git@github.com:$GITHUBORGNAME/$REPONAME.git
+git clone git@github.com:$GITHUB_ORGNAME/$REPONAME.git
 cd $REPONAME
 
-curl https://$SPRINGINITURL/starter.tgz  \
+curl https://$SPRING_INITURL/starter.tgz  \
   -d dependencies=web,actuator \
   -d language=java \
-  -d bootVersion=2.1.0.RELEASE \
+  -d bootVersion=$SI2CI_BOOTVERSION \
   -d type=maven-project \
    -o spring.tgz
 

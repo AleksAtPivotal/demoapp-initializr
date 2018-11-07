@@ -18,6 +18,6 @@ vendor:
 test:
 	@go test ./ 
 
-.PHONY: tools
-tools:
-	@go build -o bin/github_create_repository -v ./cmd/github_create_repository
+.PHONY: docker
+docker:
+	@docker build . -t alekssaul/demoapp-initializr:v0.5
