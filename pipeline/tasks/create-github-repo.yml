@@ -4,8 +4,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: alekssaul/demoapp-initializr-concourse
-    tag: "v0.1.2"
+    repository: alekssaul/github-create-repository
+    tag: "v0.2"
 
 inputs:
 - name: si2ci
