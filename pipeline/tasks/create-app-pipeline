@@ -21,8 +21,8 @@ git clone git@github.com:$GITHUB_ORGNAME/$REPONAME.git
 cd $REPONAME
 
 cat <<EOF > pipeline/credentials.yml
-deploy-username: $DEPLOY_USERNAME
-deploy-password: $DEPLOY_PASSWORD
+deploy-username: $PAS_USERNAME
+deploy-password: $PAS_PASSWORD
 pws-organization: $PAS_ORGANIZATION
 pws-space: $PAS_SPACE
 pws-api: $PAS_API
